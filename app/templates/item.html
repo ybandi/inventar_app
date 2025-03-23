@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.name }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<h2>{{ item.name }}</h2>
+
+<div class="item-details">
+   <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.name.label }} {{ form.name(class="form-control") }}
+            {% if form.name.errors %}
+            <ul class="errors">
+                {% for error in form.name.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.room.label }} {{ form.room(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.cost.label }} {{ form.cost(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.bought_by.label }} {{ form.bought_by(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.purchase_date.label }}
+            {{ form.purchase_date(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.is_new.label }} {{ form.is_new(class="form-check-input") }}
+        </div>
+        <div class="form-group">
+            {{ form.category.label }} {{ form.category(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.image.label }} {{ form.image(class="form-control") }}
+             {% if item.image_filename %}
+                <p>Current Image: <img src="{{ url_for('main.uploaded_file', filename=item.image_filename) }}" alt="{{ item.name }}" width="100"></p>
+            {% else %}
+                <p>No image currently uploaded.</p>
+            {% endif %}
+            {% if form.image.errors %}
+            <ul class="errors">
+                {% for error in form.image.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+    <form action="{{ url_for('main.delete_item', item_id=item.id) }}" method="post" style="margin-top: 10px;">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete Item</button>
+    </form>
+</div>
+{% endblock %}

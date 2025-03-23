@@ -1,0 +1,72 @@
+/* Basic styling - expand as needed */
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.flash-messages {
+    margin-bottom: 20px;
+}
+.flash-messages div{
+   padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.flash-messages .success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.flash-messages .info {
+    background-color: #cce5ff;
+    border-color: #b8daff;
+    color: #004085;
+}
+
+.flash-messages .danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+.form-group p{
+    margin-bottom: 1px;
+}
+
+.errors {
+    color: red;
+    list-style: none;
+     padding: 0px;
+    margin: 0px;
+}
+table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
