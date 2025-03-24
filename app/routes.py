@@ -5,6 +5,8 @@ from flask_login import login_user, logout_user, login_required, current_user
 import os
 from werkzeug.utils import secure_filename
 from datetime import datetime
+from flask import jsonify
+from .models import Item
 
 bp = Blueprint('main', __name__)
 UPLOAD_FOLDER = 'uploads'  # Relative to 'app' directory.  Create this!
@@ -181,3 +183,19 @@ def delete_item(item_id):
     db.session.commit()
     flash('Item deleted successfully!', 'success')
     return redirect(url_for('main.index'))
+
+# API Route
+@bp.route('/api/items_summary', methods=['GET'])
+@login_required
+def items_summary():
+    items = Item.query.all()
+    result = []
+    for item in items:
+        result.append({
+            'name': item.name,
+            'room': item.room,
+            'category': item.category,
+            'purchase_date': item.purchase_date.isoformat() if item.purchase_date else None
+        })
+    return jsonify(result)
+

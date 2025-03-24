@@ -1,13 +1,20 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField, DateField, SelectField, FileField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError, Regexp
 from .models import User
 from flask_wtf.file import FileAllowed, FileRequired
 
 
 class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
+    password = PasswordField('Password', validators=[
+        DataRequired(),
+        Length(min=12,message='Das Passwort muss mindestens 8 Zeichen lang sein.'),
+                Regexp(
+            r'^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$',
+            message='Das Passwort muss mindestens einen Grossbuchstaben, eine Zahl und ein Sonderzeichen enthalten.'
+        )
+        ])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
@@ -39,7 +46,7 @@ class AddItemForm(FlaskForm):
         FileAllowed(['jpg', 'jpeg', 'png', 'gif'], 'Images only!')
     ])
     submit = SubmitField('Add Item')
-    
+
 class EditItemForm(FlaskForm):
     name = StringField('Item Name', validators=[DataRequired()])
     room = StringField('Room')
