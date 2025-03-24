@@ -21,10 +21,14 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
 
-    from .routes import bp  # Import here to avoid circular imports
+    from .routes import bp
     app.register_blueprint(bp)
 
     # with app.app_context():
         # db.create_all() #Move to the models.py file
+
+    # Register the new API blueprint
+    from .api import api_bp
+    app.register_blueprint(api_bp)
 
     return app
