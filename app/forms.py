@@ -9,7 +9,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[
         DataRequired(),
-        Length(min=12,message='Das Passwort muss mindestens 8 Zeichen lang sein.'),
+        Length(min=12,message='Das Passwort muss mindestens 12 Zeichen lang sein.'),
                 Regexp(
             r'^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$',
             message='Das Passwort muss mindestens einen Grossbuchstaben, eine Zahl und ein Sonderzeichen enthalten.'

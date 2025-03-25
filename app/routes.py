@@ -186,7 +186,6 @@ def delete_item(item_id):
 
 # API Route
 @bp.route('/api/items_summary', methods=['GET'])
-@login_required
 def items_summary():
     items = Item.query.all()
     result = []
